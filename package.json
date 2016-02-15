@@ -5,7 +5,7 @@
   "license": "Apache",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kazazor/gulp-git-pre-commit.git"
+    "url": "https://github.com/kazazor/gulp-git-pre-commit"
   },
   "keywords": [
     "gulp",
