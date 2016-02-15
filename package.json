@@ -1,6 +1,6 @@
 {
   "name": "git-pre-commit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A pre-commit hook that ignores all the un-stagged changes while performing the pre-commit task with your favorite build tool (Gulp, Grunt etc..)",
   "license": "Apache",
   "repository": {
