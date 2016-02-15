@@ -29,7 +29,7 @@ var registerTasks = function registerTasks(gulp) {
     gulp.task('hooks:pre-commit', ['hooks:pre-commit-permissions'], function () {
       return gulp.src('scripts/' + config.paths.preCommitHookFile)
         .pipe(symlink(function(file){
-          return path.join(config.paths.gitHooksDir, config.paths.preCommitHookFile);
+          return path.join(gulpUtils.getGitRootDirectory(), config.paths.gitHooksDir, config.paths.preCommitHookFile);
         }));
     });
 
