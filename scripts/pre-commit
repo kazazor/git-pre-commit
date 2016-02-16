@@ -88,7 +88,5 @@ if (!gitRoot) {
 
       process.exit(exitCode);
     });
-    // command = packageJson.precommit;
-    // var result = execCommand(command, gitRoot);
   }
 }
