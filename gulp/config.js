@@ -3,10 +3,9 @@
  */
 var config = {};
 config.paths = {
-  allAppJsFiles: './**/*.js',
+  allAppJsFiles: './!(node_modules)/**/*.js',
   gitHooksDir: '.git/hooks/',
-  preCommitHookFile: 'pre-commit',
-  nodeModules: './node_modules'
+  preCommitHookFile: 'pre-commit'
 };
 
 config.eslintOptions = {};
@@ -17,7 +16,7 @@ config.eslintOptions.warnFileIgnored = true;
 config.eslintOptions.fix = false;
 
 config.sources = {
-  allJsFilesExcludePackages: ['!' + config.paths.nodeModules, config.paths.allAppJsFiles]
+  allJsFilesExcludePackages: [config.paths.allAppJsFiles]
 };
 
 module.exports = config;

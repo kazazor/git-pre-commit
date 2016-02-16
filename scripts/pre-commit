@@ -29,27 +29,28 @@ var gitRoot = getGitRootDirectory();
 
 function execCommand(command, root) {
   try {
-    var result = exec(command, { cwd: root });
-    return {
-      exitCode: result.code
-    }
+    execSync(command, { cwd: root });
   } catch(e) {
-    print(e.stdout.toString(), {color: 'red'});
+    if (e && e.stdout) {
+      print(e.stdout.toString(), {color: 'red'});
+    }
+
     process.exit(1);
   }
 }
 
 if (!gitRoot) {
   print("Are you sure this is a git repository..? I'll stop for now..", {color: 'red'});
-  exitCode = 1;
+  process.exit(1);
 } else {
   var packageJson = JSON.parse(fs.readFileSync(path.join(gitRoot, 'package.json')));
-  var command = packageJson.precommit;
 
   // Checks if the command to run exists in the package.json file
-  if (!command) {
+  if (!packageJson.precommit) {
     print("You did not supply any code to run in the 'precommit' field in the package.json file", {color: 'red'});
   } else {
+    var command;
+
     // Fixes the issue the causes SourceTree to not run the pre-commit hook with the error:
     // 'env: node: No such file or directory'
     command = "PATH=$PATH:/usr/local/bin:/usr/local/sbin";
@@ -59,19 +60,35 @@ if (!gitRoot) {
     command = "git stash --quiet --keep-index --include-untracked";
     execCommand(command, gitRoot);
 
-    command = packageJson.precommit;
-    var result = execCommand(command, gitRoot);
+    var commandParts = packageJson.precommit.split(" ");
 
-    if (result.exitCode !== undefined && result.exitCode !== null && result.exitCode !== 0) {
-      exitCode = 1;
-    }
+    // Gets the executable to run
+    var exec = commandParts[0];
 
-    command = "git reset --hard";
-    execCommand(command, gitRoot);
+    // Leaves only the params in the array
+    commandParts.splice(0, 1);
 
-    command = "git stash pop --quiet --index";
-    execCommand(command, gitRoot);
+    // Why do we use spawn and not a regular shelljs?
+    // We want to preserve the colors of the output, so until the feature will be implemented
+    // in shelljs, we;ll use the spawn way:
+    // https://github.com/shelljs/shelljs/issues/86
+    var spawn = require('child_process').spawn;
+    var cmd = spawn(exec, commandParts, {stdio: "inherit", cwd: gitRoot });
+
+    cmd.on('exit', function(code) {
+      if (code !== undefined && code !== null && code !== 0) {
+        exitCode = 1;
+      }
+
+      command = "git reset --hard";
+      execCommand(command, gitRoot);
+
+      command = "git stash pop --quiet --index";
+      execCommand(command, gitRoot);
+
+      process.exit(exitCode);
+    });
+    // command = packageJson.precommit;
+    // var result = execCommand(command, gitRoot);
   }
 }
-
-process.exit(exitCode);
