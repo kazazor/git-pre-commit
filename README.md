@@ -3,8 +3,14 @@
 ## TL;DR
 You can run the pre-commit with any build tool (Gulp, Grunt etc..) and it will ignore all the **unstaged changes** that you did NOT ```git add```.
 
+First install you package in your ```devDependencies```:
 ```shell
 npm install git-pre-commit --save-dev
+```
+
+Now, add to your ```package.json``` the entry:
+```javascript
+"precommit": "<task to run>"
 ```
 
 ## What this package is actually solving?
