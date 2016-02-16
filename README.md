@@ -16,6 +16,7 @@ So what usually people do?<br>
 You try to perform a commit and then your pre-commit hook runs and lints all of your files.
 
 There are 2 issues with that common approach:
+
 1. When you have some unstaged changes and you would like to commit only the staged changes (the ones you performed ```git add``` on) your lint task checks the file itself and doesn't know if the code there will be part of the commit or not.<br>
 This resolves into 2 possible situations:
   * **The code in the unstaged changes break the lint task** - why should I care?!? I'm not trying to commit this code!!
