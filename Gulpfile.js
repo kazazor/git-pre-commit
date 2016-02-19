@@ -5,7 +5,7 @@
 var gulp = require('gulp');
 var yargs = require('yargs');
 var path = require('path');
-var runSequence = require('run-sequence');
+var runSequence = require('run-sequence').use(gulp);
 
 var args = {
   showProccesedFiles: yargs.argv.show || false,
