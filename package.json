@@ -1,6 +1,6 @@
 {
   "name": "git-pre-commit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A pre-commit hook that ignores all the unstaged changes while performing the pre-commit task with your favorite build tool (Gulp, Grunt etc..)",
   "license": "MIT",
   "repository": {
