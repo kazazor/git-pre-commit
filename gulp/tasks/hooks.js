@@ -1,7 +1,7 @@
 /**
  * @fileoverview Initialization the tasks that are related to git hooks
  */
-var symlink = require('gulp-symlink');
+
 var gulpdebug = require('gulp-debug');
 var gulpif = require('gulp-if');
 var path = require('path');
@@ -10,6 +10,7 @@ var config = rootRequire('./gulp/config');
 var runSequence = require('run-sequence');
 var gulpUtils = rootRequire('./gulp/gulp-utils');
 var chmod = require('gulp-chmod');
+var vfs = require('vinyl-fs');
 
 /**
  * Initialize the gulp tasks regarding the js linting
@@ -27,10 +28,8 @@ var registerTasks = function registerTasks(gulp) {
 
     // A task to install a pre-commit hook
     gulp.task('hooks:pre-commit', ['hooks:pre-commit-permissions'], function () {
-      return gulp.src('scripts/' + config.paths.preCommitHookFile)
-        .pipe(symlink(function(file){
-          return path.join(gulpUtils.getGitRootDirectory(), config.paths.gitHooksDir, config.paths.preCommitHookFile);
-        }));
+      return vfs.src('scripts/' + config.paths.preCommitHookFile, {followSymlinks: false})
+        .pipe(vfs.symlink(path.join(gulpUtils.getGitRootDirectory(), config.paths.gitHooksDir)));
     });
 
     // A task to delete all the git hooks directory
