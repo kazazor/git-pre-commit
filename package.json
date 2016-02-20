@@ -17,7 +17,8 @@
     "grunt"
   ],
   "author": {
-    "name": "Or Kazaz"
+    "name": "Or Kazaz",
+    "url": "https://github.com/kazazor"
   },
   "bugs": {
     "url": "https://github.com/kazazor/git-pre-commit/issues"
