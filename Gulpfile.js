@@ -2,7 +2,7 @@
  * @fileoverview Initialization for all the general gulp tasks.
  */
 
-var gulp = require('gulp');
+var gulp = require('./node_modules/gulp');
 var yargs = require('yargs');
 var path = require('path');
 var runSequence = require('run-sequence').use(gulp);
