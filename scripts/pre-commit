@@ -29,6 +29,9 @@ var gitRoot = getGitRootDirectory();
 
 function execCommand(command, root) {
   try {
+    // Fixes the issue the causes SourceTree to not run the pre-commit hook with the error:
+    // 'env: node: No such file or directory'
+    command = "PATH=$PATH:/usr/local/bin:/usr/local/sbin; " + command;
     execSync(command, { cwd: root });
   } catch(e) {
     if (e && e.stdout) {
@@ -50,11 +53,6 @@ if (!gitRoot) {
     print("You did not supply any code to run in the 'precommit' field in the package.json file", {color: 'red'});
   } else {
     var command;
-
-    // Fixes the issue the causes SourceTree to not run the pre-commit hook with the error:
-    // 'env: node: No such file or directory'
-    command = "PATH=$PATH:/usr/local/bin:/usr/local/sbin";
-    execCommand(command, gitRoot);
 
     // Ensure that code that isn't part of the prospective commit isn't tested within your pre-commit script
     command = "git stash --quiet --keep-index --include-untracked";
