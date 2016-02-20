@@ -18,6 +18,9 @@ var vfs = require('vinyl-fs');
  */
 var registerTasks = function registerTasks(gulp) {
   if (gulp) {
+    // Handeling the case when using a different gulp reference than the intended one of the package:
+    // https://www.npmjs.com/package/run-sequence#using-within-gulp-submodules
+    runSequence.use(gulp);
 
     // A task to make the pre-commit executable
     gulp.task('hooks:pre-commit-permissions', function() {
