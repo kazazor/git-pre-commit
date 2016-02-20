@@ -44,7 +44,7 @@
     "q": "1.4.1"
   },
   "engines": {
-    "node": "4.3.0"
+    "node": ">=4.2.0"
   },
   "scripts": {
     "postinstall": "gulp hooks:install",
