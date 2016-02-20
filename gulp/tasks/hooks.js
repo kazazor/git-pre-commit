@@ -7,7 +7,7 @@ var gulpif = require('gulp-if');
 var path = require('path');
 var del = require('del');
 var config = rootRequire('./gulp/config');
-var runSequence = require('run-sequence');
+
 var gulpUtils = rootRequire('./gulp/gulp-utils');
 var chmod = require('gulp-chmod');
 var vfs = require('vinyl-fs');
@@ -20,7 +20,7 @@ var registerTasks = function registerTasks(gulp) {
   if (gulp) {
     // Handeling the case when using a different gulp reference than the intended one of the package:
     // https://www.npmjs.com/package/run-sequence#using-within-gulp-submodules
-    runSequence.use(gulp);
+    var runSequence = require('run-sequence').use(gulp);
 
     // A task to make the pre-commit executable
     gulp.task('hooks:pre-commit-permissions', function() {
