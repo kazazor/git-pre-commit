@@ -23,29 +23,37 @@ var registerTasks = function registerTasks(gulp) {
 
     // A task to make the pre-commit executable
     gulp.task('hooks:pre-commit-permissions', function() {
-      return gulp.src('scripts/' + config.paths.preCommitHookFile, {base: './'})
+      var sources = [config.paths.sourcePreCommitFilePath, config.paths.sourcePrecommitJsFilePath];
+      return gulp.src(sources, {base: './'})
         .pipe(chmod(755))
         .pipe(gulp.dest('./'));
     });
 
     // A task to install a pre-commit hook
-    gulp.task('hooks:pre-commit', ['hooks:pre-commit-permissions'], function () {
-      return vfs.src('scripts/' + config.paths.preCommitHookFile, {followSymlinks: false})
-        .pipe(vfs.symlink(path.join(gulpUtils.getGitRootDirectory(), config.paths.gitHooksDir)));
+    gulp.task('hooks:pre-commit', function () {
+      return vfs.src(config.paths.sourcePreCommitFilePath, {followSymlinks: false})
+        .pipe(vfs.symlink(config.paths.gitHooksFullPath));
+    });
+
+    // A task to install a pre-commit hook js file
+    gulp.task('hooks:pre-commit-js', function () {
+      return vfs.src(config.paths.sourcePrecommitJsFilePath, {followSymlinks: false})
+        .pipe(vfs.symlink(config.paths.gitHooksFullPath));
     });
 
     // A task to delete all the git hooks directory
     gulp.task('hooks:clean', function() {
-      var preCommitHookPath = path.join(gulpUtils.getGitRootDirectory(), config.paths.gitHooksDir,
-                                        config.paths.preCommitHookFile);
-      gulpUtils.print('Deleting file: ' + preCommitHookPath);
-      return del([preCommitHookPath], {force: true});
+      var preCommitHookPath = path.join(config.paths.gitHooksFullPath, config.paths.preCommitHookFileName);
+      var preCommitJsPath = path.join(config.paths.destPrecommitJsFilePath);
+      var deletions = [preCommitHookPath, preCommitJsPath];
+      gulpUtils.print('Deleting file: ' + deletions);
+      return del(deletions, {force: true});
     });
 
     // A task to install all the git hooks after a cleaning the existing git hooks
     gulp.task('hooks:install', ['hooks:clean'], function(callback){
       // We would like to run the installation of the pre-commit hook only after the clean task has finished
-      runSequence(['hooks:pre-commit'], function() {
+      runSequence(['hooks:pre-commit', 'hooks:pre-commit-js'], ['hooks:pre-commit-permissions'], function() {
         callback();
       });
     });
