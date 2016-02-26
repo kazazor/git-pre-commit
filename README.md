@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/kazazor/git-pre-commit.svg?branch=master)](https://travis-ci.org/kazazor/git-pre-commit)
 # Git pre-commit hook for pros!
 
 ## TL;DR
