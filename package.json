@@ -48,7 +48,8 @@
   },
   "scripts": {
     "postinstall": "gulp hooks:install",
-    "uninstall": "gulp hooks:clean"
+    "uninstall": "gulp hooks:clean",
+    "test": "gulp tests"
   },
   "precommit": "gulp pre-commit"
 }

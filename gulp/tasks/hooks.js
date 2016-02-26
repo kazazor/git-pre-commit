@@ -12,7 +12,7 @@ var chmod = require('gulp-chmod');
 var vfs = require('vinyl-fs');
 
 /**
- * Initialize the gulp tasks regarding the js linting
+ * Initialize the gulp tasks regarding the git hooks
  * @param {Object} gulp - the gulp instance
  */
 var registerTasks = function registerTasks(gulp) {
@@ -57,6 +57,9 @@ var registerTasks = function registerTasks(gulp) {
         callback();
       });
     });
+
+    // A task to test all the cases regarding the git hooks
+    gulp.task('hooks:tests', []);
   }
 };
 
