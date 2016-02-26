@@ -1,5 +1,6 @@
-[![Build Status](https://travis-ci.org/kazazor/git-pre-commit.svg?branch=master)](https://travis-ci.org/kazazor/git-pre-commit)
 # Git pre-commit hook for pros!
+
+[![Build Status](https://travis-ci.org/kazazor/git-pre-commit.svg?branch=master)](https://travis-ci.org/kazazor/git-pre-commit)
 
 ## TL;DR
 You can run the pre-commit with any build tool (Gulp, Grunt etc..) and it will ignore all the **unstaged changes** that you did NOT ```git add```.
