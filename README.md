@@ -1,6 +1,9 @@
 # Git pre-commit hook for pros!
 
 [![Build Status](https://travis-ci.org/kazazor/git-pre-commit.svg?branch=master)](https://travis-ci.org/kazazor/git-pre-commit)
+[![Dependency Status](https://gemnasium.com/kazazor/git-pre-commit.svg)](https://gemnasium.com/kazazor/git-pre-commit)
+
+[![NPM](https://nodei.co/npm/git-pre-commit.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/git-pre-commit/)
 
 ## TL;DR
 You can run the pre-commit with any build tool (Gulp, Grunt etc..) and it will ignore all the **unstaged changes** that you did NOT ```git add```.
