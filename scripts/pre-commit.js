@@ -40,6 +40,7 @@ if (!gitRoot) {
   // Checks if the command to run exists in the package.json file
   if (!packageJson.precommit) {
     gulpUtils.print("You did not supply any code to run in the 'precommit' field in the package.json file", {color: 'red'});
+    process.exit(1);
   } else {
     var command;
 

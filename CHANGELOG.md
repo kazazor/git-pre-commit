@@ -2,6 +2,8 @@
 [![NPM](https://nodei.co/npm/git-pre-commit.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/git-pre-commit/)
 
 ## Future version
+* **Fixes**
+  * Fixed the issue when there isn't any precommit entry in the package.json file and the git commit command actually commits the code -  [#16](https://github.com/kazazor/git-pre-commit/issues/16).
 * **Development**
   * Added dev/dependencies monitoring using [https://david-dm.org](https://david-dm.org), to keep the project's dependencies up to date - [#15](https://github.com/kazazor/git-pre-commit/issues/15).
 * **Tests**
