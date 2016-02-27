@@ -10,7 +10,11 @@ config.paths = {
   gitHooksDirName: '.git/hooks/',
   preCommitHookFileName: 'pre-commit',
   preCommitJsFileName: 'pre-commit.js',
-  scriptsFolder: 'scripts/'
+  scriptsFolder: 'scripts/',
+  tests: {
+    folder: 'tests/',
+    hooks: 'hooks.js'
+  }
 };
 
 config.paths.sourcePreCommitFilePath = path.join(config.paths.scriptsFolder, config.paths.preCommitHookFileName);
