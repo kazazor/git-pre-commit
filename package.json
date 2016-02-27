@@ -8,13 +8,23 @@
     "url": "https://github.com/kazazor/git-pre-commit"
   },
   "keywords": [
-    "gulp",
+    "git",
+    "pre-commit",
+    "precommit",
+    "hook",
+    "hooks",
     "lint",
     "eslint",
-    "pre-commit",
-    "git",
-    "hook",
-    "grunt"
+    "jshint",
+    "gulp",
+    "grunt",
+    "npm",
+    "node",
+    "nodejs",
+    "js",
+    "javascript",
+    "ci",
+    "development"
   ],
   "author": {
     "name": "Or Kazaz",
@@ -24,27 +34,28 @@
     "url": "https://github.com/kazazor/git-pre-commit/issues"
   },
   "dependencies": {
-    "del": "2.1.0",
+    "del": "2.2.0",
     "fs": "0.0.2",
     "gulp": "3.9.1",
     "gulp-chmod": "1.3.0",
     "gulp-debug": "2.1.2",
-    "gulp-git": "1.6.0",
+    "gulp-git": "1.7.0",
     "gulp-if": "2.0.0",
     "gulp-util": "3.0.7",
     "path": "0.12.7",
     "run-sequence": "1.1.5",
     "shelljs": "0.6.0",
-    "vinyl-fs": "2.3.1",
-    "yargs": "3.26.0"
+    "vinyl-fs": "2.3.4",
+    "yargs": "4.2.0"
   },
   "devDependencies": {
     "eslint": "1.10.3",
     "gulp-eslint": "1.1.0",
+    "gulp-mocha": "2.2.0",
     "q": "1.4.1"
   },
   "engines": {
-    "node": ">=4.2.0"
+    "node": ">=4.3.1"
   },
   "scripts": {
     "postinstall": "gulp hooks:install",
