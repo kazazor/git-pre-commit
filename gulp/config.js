@@ -14,7 +14,8 @@ config.paths = {
   scriptsFolder: 'scripts/',
   tests: {
     folder: 'tests/',
-    hooks: 'hooks.js'
+    hooks: 'hooks.test.js',
+    gitManager: 'git-manager.test.js'
   }
 };
 

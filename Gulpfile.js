@@ -46,4 +46,4 @@ gulp.task('lint', function(callback) {
 gulp.task('pre-commit', ['lint']);
 
 // Runs all the tests in the  system
-gulp.task('tests', ['hooks:tests']);
+gulp.task('tests', ['hooks:tests', 'git-manager:tests']);
