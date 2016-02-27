@@ -16,6 +16,4 @@ function GitManager() {
   this.gitRootDirectory = getGitRootDirectory();
 }
 
-GitManager.prototype.getGitRootDirectory = getGitRootDirectory;
-
 module.exports = new GitManager();

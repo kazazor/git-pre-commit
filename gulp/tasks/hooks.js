@@ -10,7 +10,6 @@ var config = rootRequire('./gulp/config');
 var gulpUtils = rootRequire('./gulp/gulp-utils');
 var chmod = require('gulp-chmod');
 var vfs = require('vinyl-fs');
-var mocha = require('gulp-mocha');
 
 /**
  * Initialize the gulp tasks regarding the git hooks
@@ -57,14 +56,6 @@ var registerTasks = function registerTasks(gulp) {
       runSequence(['hooks:pre-commit', 'hooks:pre-commit-js'], ['hooks:pre-commit-permissions'], function() {
         callback();
       });
-    });
-
-    // A task to test all the cases regarding the git hooks
-    gulp.task('hooks:tests', [], function() {
-      var hooksTestsPath = path.join(config.paths.tests.folder, config.paths.tests.hooks);
-      return gulp.src(hooksTestsPath, {read: false})
-        // gulp-mocha needs filepaths so you can't have any plugins before it
-        .pipe(mocha({reporter: 'nyan'}));
     });
   }
 };

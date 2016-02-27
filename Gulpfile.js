@@ -25,6 +25,8 @@ var gulpLintJsTasksRegister = rootRequire('./gulp/tasks/lint-js');
 gulpLintJsTasksRegister(gulp);
 var gulpHooksTasksRegister = rootRequire('./gulp/tasks/hooks');
 gulpHooksTasksRegister(gulp);
+var gulpTestsTasksRegister = rootRequire('./gulp/tasks/tests');
+gulpTestsTasksRegister(gulp);
 
 // Lint our code
 gulp.task('lint', function(callback) {
