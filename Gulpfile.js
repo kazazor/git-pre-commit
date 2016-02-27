@@ -25,8 +25,12 @@ var gulpLintJsTasksRegister = rootRequire('./gulp/tasks/lint-js');
 gulpLintJsTasksRegister(gulp);
 var gulpHooksTasksRegister = rootRequire('./gulp/tasks/hooks');
 gulpHooksTasksRegister(gulp);
-var gulpTestsTasksRegister = rootRequire('./gulp/tasks/tests');
-gulpTestsTasksRegister(gulp);
+
+// Only add these tasks if we're in development mode
+if (process.env.NODE_ENV === "development") {
+  var gulpTestsTasksRegister = rootRequire('./gulp/tasks/tests');
+  gulpTestsTasksRegister(gulp);
+}
 
 // Lint our code
 gulp.task('lint', function(callback) {
