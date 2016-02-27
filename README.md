@@ -1,7 +1,6 @@
-# Git pre-commit hook for pros!
-
 [![Build Status](https://travis-ci.org/kazazor/git-pre-commit.svg?branch=master)](https://travis-ci.org/kazazor/git-pre-commit)
-[![Dependency Status](https://gemnasium.com/kazazor/git-pre-commit.svg)](https://gemnasium.com/kazazor/git-pre-commit)
+[![Dependency Status](https://david-dm.org/kazazor/git-pre-commit.svg)](https://david-dm.org/kazazor/git-pre-commit)
+[![devDependency Status](https://david-dm.org/kazazor/git-pre-commit/dev-status.svg)](https://david-dm.org/kazazor/git-pre-commit#info=devDependencies)
 
 [![NPM](https://nodei.co/npm/git-pre-commit.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/git-pre-commit/)
 
