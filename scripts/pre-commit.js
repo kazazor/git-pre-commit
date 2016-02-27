@@ -62,8 +62,12 @@ if (!gitRoot) {
         exitCode = 1;
       }
 
-      command = "git reset --hard";
-      execCommand(command, gitRoot);
+      // Only perform the git reset hard if we have an initial commit on this branch.
+      // Fix: https://github.com/kazazor/git-pre-commit/issues/8
+      if (gitManager.isInitialCommitExists()) {
+        command = "git reset --hard";
+        execCommand(command, gitRoot);
+      }
 
       command = "git stash pop --quiet --index";
       execCommand(command, gitRoot);
