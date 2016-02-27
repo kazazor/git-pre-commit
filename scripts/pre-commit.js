@@ -3,8 +3,9 @@
 var execSync = require('child_process').execSync;
 var fs = require('fs');
 var path = require('path');
-var gutil = require('gulp-util');
 require('shelljs/global');
+var gitManager = require('../utils/git-manager');
+var gulpUtils = require('../gulp/gulp-utils');
 
 // Why do we use spawn and not a regular shelljs?
 // We want to preserve the colors of the output, so until the feature will be implemented
@@ -12,26 +13,8 @@ require('shelljs/global');
 // https://github.com/shelljs/shelljs/issues/86
 var spawn = require('cross-spawn');
 
-function getGitRootDirectory() {
-  try {
-    return execSync('git rev-parse --show-toplevel').toString().trim();
-  } catch(e) {
-    return undefined;
-  }
-}
-
-function print(message, options) {
-  if (message) {
-    message = JSON.stringify(message);
-    var color = options && options.color || 'white';
-    gutil.log(gutil.colors[color](message));
-  } else {
-    gutil.log(gutil.colors.red('Warning! Trying to print an undefined message'));
-  }
-}
-
 var exitCode = 0;
-var gitRoot = getGitRootDirectory();
+var gitRoot = gitManager.gitRootDirectory;
 
 function execCommand(command, root) {
   try {
@@ -41,7 +24,7 @@ function execCommand(command, root) {
     execSync(command, { cwd: cwd });
   } catch(e) {
     if (e && e.stdout) {
-      print(e.stdout.toString(), {color: 'red'});
+      gulpUtils.print(e.stdout.toString(), {color: 'red'});
     }
 
     process.exit(1);
@@ -49,14 +32,14 @@ function execCommand(command, root) {
 }
 
 if (!gitRoot) {
-  print("Are you sure this is a git repository..? I'll stop for now..", {color: 'red'});
+  gulpUtils.print("Are you sure this is a git repository..? I'll stop for now..", {color: 'red'});
   process.exit(1);
 } else {
   var packageJson = JSON.parse(fs.readFileSync(path.join(gitRoot, 'package.json')));
 
   // Checks if the command to run exists in the package.json file
   if (!packageJson.precommit) {
-    print("You did not supply any code to run in the 'precommit' field in the package.json file", {color: 'red'});
+    gulpUtils.print("You did not supply any code to run in the 'precommit' field in the package.json file", {color: 'red'});
   } else {
     var command;
 

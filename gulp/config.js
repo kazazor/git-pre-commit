@@ -3,6 +3,7 @@
  */
 var path = require('path');
 var gulpUtils = rootRequire('./gulp/gulp-utils');
+var gitManager = rootRequire('./utils/git-manager');
 var config = {};
 
 config.paths = {
@@ -19,7 +20,7 @@ config.paths = {
 
 config.paths.sourcePreCommitFilePath = path.join(config.paths.scriptsFolder, config.paths.preCommitHookFileName);
 config.paths.sourcePrecommitJsFilePath = path.join(config.paths.scriptsFolder, config.paths.preCommitJsFileName);
-config.paths.gitHooksFullPath = path.join(gulpUtils.getGitRootDirectory(), config.paths.gitHooksDirName);
+config.paths.gitHooksFullPath = path.join(gitManager.gitRootDirectory, config.paths.gitHooksDirName);
 config.paths.destPrecommitJsFilePath = path.join(config.paths.gitHooksFullPath, config.paths.preCommitJsFileName);
 
 config.eslintOptions = {};

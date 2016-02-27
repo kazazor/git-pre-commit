@@ -7,14 +7,6 @@ var execSync = require('child_process').execSync;
 
 var gulpUtils = {};
 
-gulpUtils.getGitRootDirectory = function getGitRootDirectory() {
-  try {
-    return execSync('git rev-parse --show-toplevel').toString().trim();
-  } catch(e) {
-    return undefined;
-  }
-};
-
 /**
  * Prints to the console
  * @param {String} message - the message to print

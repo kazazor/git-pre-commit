@@ -14,7 +14,7 @@
 
 ## v0.1.4 (20-Feb-2016)
 * **Fixes**
-  * Fixed the issue that the package results with an error regarding run-sequence when it was used as a sub module in other projects [#7](https://github.com/kazazor/git-pre-commit/issues/7).
+  * Fixed the issue that the package results with an error regarding run-sequence when it was used as a sub module in other projects -  [#7](https://github.com/kazazor/git-pre-commit/issues/7).
 
 ## v0.1.1 (19-Feb-2016)
 * **Fixes**
