@@ -11,7 +11,8 @@ var args = {
   showProccesedFiles: yargs.argv.show || false,
   all: yargs.argv.all,
   path: yargs.argv.path,
-  fix: yargs.argv.fix
+  fix: yargs.argv.fix,
+  env: yargs.argv.env ? yargs.argv.env : (process.env.NODE_ENV ? process.env.NODE_ENV : 'production')
 };
 
 global.args = args;
@@ -27,7 +28,7 @@ var gulpHooksTasksRegister = rootRequire('./gulp/tasks/hooks');
 gulpHooksTasksRegister(gulp);
 
 // Only add these tasks if we're in development mode
-if (process.env.NODE_ENV === "development") {
+if (args.env === "development") {
   var gulpTestsTasksRegister = rootRequire('./gulp/tasks/tests');
   gulpTestsTasksRegister(gulp);
 }

@@ -61,7 +61,7 @@
   "scripts": {
     "postinstall": "gulp hooks:install",
     "uninstall": "gulp hooks:clean",
-    "test": "gulp tests"
+    "test": "gulp tests --env=development"
   },
   "precommit": "gulp pre-commit"
 }

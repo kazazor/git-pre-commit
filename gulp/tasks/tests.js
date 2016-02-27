@@ -15,7 +15,8 @@ var registerTasks = function registerTasks(gulp) {
     // A task to test all the cases regarding the git hooks
     gulp.task('hooks:tests', [], function() {
       var hooksTestsPath = path.join(config.paths.tests.folder, config.paths.tests.hooks);
-      return gulp.src(hooksTestsPath, {read: false})
+      var tests = [hooksTestsPath];
+      return gulp.src(tests, {read: false})
         // gulp-mocha needs filepaths so you can't have any plugins before it
         .pipe(mocha({reporter: 'nyan'}));
     });
