@@ -1,7 +1,7 @@
 {
   "name": "git-pre-commit",
   "version": "0.1.7",
-  "description": "A pre-commit hook that ignores all the unstaged changes while performing the pre-commit task with your favorite build tool (Gulp, Grunt etc..)",
+  "description": "You can run the pre-commit with any build tool (Gulp, Grunt etc..) and it will ignore all the **unstaged changes** that wasn't added to the git index (using the command ```git add```).",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -49,6 +49,7 @@
     "yargs": "4.2.0"
   },
   "devDependencies": {
+    "cross-spawn": "2.1.5",
     "eslint": "1.10.3",
     "gulp-eslint": "1.1.0",
     "gulp-mocha": "2.2.0",

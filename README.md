@@ -5,7 +5,7 @@
 [![NPM](https://nodei.co/npm/git-pre-commit.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/git-pre-commit/)
 
 ## TL;DR
-You can run the pre-commit with any build tool (Gulp, Grunt etc..) and it will ignore all the **unstaged changes** that you did NOT ```git add```.
+You can run the pre-commit with any build tool (Gulp, Grunt etc..) and it will ignore all the **unstaged changes** that wasn't added to the git index (using the command ```git add```).
 
 First install you package in your ```devDependencies```:
 ```shell

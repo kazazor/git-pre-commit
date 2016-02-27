@@ -6,6 +6,12 @@ var path = require('path');
 var gutil = require('gulp-util');
 require('shelljs/global');
 
+// Why do we use spawn and not a regular shelljs?
+// We want to preserve the colors of the output, so until the feature will be implemented
+// in shelljs, we;ll use the spawn way:
+// https://github.com/shelljs/shelljs/issues/86
+var spawn = require('cross-spawn');
+
 function getGitRootDirectory() {
   try {
     return execSync('git rev-parse --show-toplevel').toString().trim();
@@ -66,11 +72,6 @@ if (!gitRoot) {
     // Leaves only the params in the array
     commandParts.splice(0, 1);
 
-    // Why do we use spawn and not a regular shelljs?
-    // We want to preserve the colors of the output, so until the feature will be implemented
-    // in shelljs, we;ll use the spawn way:
-    // https://github.com/shelljs/shelljs/issues/86
-    var spawn = require('child_process').spawn;
     var cmd = spawn(exec, commandParts, {stdio: "inherit", cwd: gitRoot });
 
     cmd.on('exit', function(code) {
