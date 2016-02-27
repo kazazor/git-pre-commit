@@ -63,5 +63,5 @@
     "uninstall": "gulp hooks:clean",
     "test": "gulp tests --env=development"
   },
-  "precommit": "gulp pre-commit"
+  "precommit": "gulp pre-commit --env=development"
 }

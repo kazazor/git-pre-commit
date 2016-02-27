@@ -22,8 +22,6 @@ global.rootRequire = function(name) {
 };
 
 // Register other tasks from separate files
-var gulpLintJsTasksRegister = rootRequire('./gulp/tasks/lint-js');
-gulpLintJsTasksRegister(gulp);
 var gulpHooksTasksRegister = rootRequire('./gulp/tasks/hooks');
 gulpHooksTasksRegister(gulp);
 
@@ -31,6 +29,8 @@ gulpHooksTasksRegister(gulp);
 if (args.env === "development") {
   var gulpTestsTasksRegister = rootRequire('./gulp/tasks/tests');
   gulpTestsTasksRegister(gulp);
+  var gulpLintJsTasksRegister = rootRequire('./gulp/tasks/lint-js');
+  gulpLintJsTasksRegister(gulp);
 }
 
 // Lint our code
