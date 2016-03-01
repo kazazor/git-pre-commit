@@ -40,7 +40,7 @@ GitManager.prototype.getInitialCommitHash = function getInitialCommitHash() {
   // TODO - check what happens when there is no commit yet
   // TODO - check what happens when there is commit on master but now we're on a different branch
   try {
-    return execSync('git rev-list --max-parents=0 HEAD').toString().trim();
+    return execSync('git rev-list --quiet --max-parents=0 HEAD').toString().trim();
   } catch(e) {
     return undefined;
   }
