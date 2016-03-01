@@ -41,6 +41,14 @@ if (!gitRoot) {
   if (!packageJson.precommit) {
     gulpUtils.print("You did not supply any code to run in the 'precommit' field in the package.json file", {color: 'red'});
     process.exit(1);
+  } else if (!gitManager.isInitialCommitExists()) {
+    // 'git stash' command doesn't work when there is no HEAD created yet.
+    // In that case we'll just tell the user that the pre-commit hook can't run and give him the command to run without
+    // the hook verification
+    // Fix: https://github.com/kazazor/git-pre-commit/issues/8
+    gulpUtils.print("'git stash' command cannot run without existing HEAD. We're canceling the hook for now.\n" +
+    "JUST FOR THIS FIRST COMMIT: please run the command: 'git commit -m \"your message\" --no-verify'");
+    process.exit(1);
   } else {
     var command;
 
@@ -63,12 +71,8 @@ if (!gitRoot) {
         exitCode = 1;
       }
 
-      // Only perform the git reset hard if we have an initial commit on this branch.
-      // Fix: https://github.com/kazazor/git-pre-commit/issues/8
-      if (gitManager.isInitialCommitExists()) {
-        command = "git reset --hard";
-        execCommand(command, gitRoot);
-      }
+      command = "git reset --hard";
+      execCommand(command, gitRoot);
 
       command = "git stash pop --quiet --index";
       execCommand(command, gitRoot);

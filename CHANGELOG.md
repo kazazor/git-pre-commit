@@ -1,14 +1,17 @@
 # Change log
 [![NPM](https://nodei.co/npm/git-pre-commit.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/git-pre-commit/)
 
-## Future version
-* **Fixes**
-  * Fixed the issue when there isn't any precommit entry in the package.json file and the git commit command actually commits the code -  [#16](https://github.com/kazazor/git-pre-commit/issues/16).
-* **Development**
-  * Added dev/dependencies monitoring using [https://david-dm.org](https://david-dm.org), to keep the project's dependencies up to date - [#15](https://github.com/kazazor/git-pre-commit/issues/15).
+## Future release
 * **Tests**
   * Added [Travis-CI](https://travis-ci.org/kazazor/git-pre-commit) build to the repository in order to run the tests on every push / PR. [Node.js](https://nodejs.org/en/) version to run at build are: 0.12.x, 4.0.x, 4.1.x, 4.2.x, 4.3.x, 5.7.x & 5.x.x - [#11](https://github.com/kazazor/git-pre-commit/issues/11).
   * Added tests to the repository using [mocha](https://mochajs.org/) - [#12](https://github.com/kazazor/git-pre-commit/issues/12).
+
+## v0.1.8
+* **Fixes**
+  * Fixed the issue when there isn't any precommit entry in the package.json file and the git commit command actually commits the code -  [#16](https://github.com/kazazor/git-pre-commit/issues/16).
+  * Fixed the issue when you couldn't perform the pre-commit task when the commit was the initial commit in the repository - [#8](https://github.com/kazazor/git-pre-commit/issues/8).
+* **Development**
+  * Added dev/dependencies monitoring using [https://david-dm.org](https://david-dm.org), to keep the project's dependencies up to date - [#15](https://github.com/kazazor/git-pre-commit/issues/15).
 
 ## v0.1.7 (25-Feb-2016)
 * **Fixes**
