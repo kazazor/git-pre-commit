@@ -27,11 +27,12 @@ You try to perform a commit and then your pre-commit hook runs and lints all of 
 
 There are 2 issues with that common approach:
 
-1. When you have some unstaged changes and you would like to commit only the staged changes (the ones you performed ```git add``` on) your lint task checks the file itself and doesn't know if the code there will be part of the commit or not.<br>
+\#1 - When you have some unstaged changes and you would like to commit only the staged changes (the ones you performed ```git add``` on) your lint task checks the file itself and doesn't know if the code there will be part of the commit or not.<br>
 This resolves into 2 possible situations:
   * **The code in the unstaged changes break the lint task** - why should I care?!? I'm not trying to commit this code!!
   * **The code in the unstaged changes is actualy fixing the lint task, but it is not part of the commit** - so for example you got an eslint error on your commit, you fixed it **but forgot to** ```git add``` **the changes**, now the lint task passes BUT you ended up with the fixing changes **outside of your commit**.<br><br>
-2. <a name="number2issue"></a> It lints **all** the files and not just the changed files. This is not addressed in this package as it is not the point of it. (For example on how to lint **only the changed files** you can checkout [my eslint example](https://github.com/kazazor/gulp-eslint-precommit) that also uses the ```git-pre-commit``` package).
+
+\#2 - <a name="number2issue"></a> It lints **all** the files and not just the changed files. This is not addressed in this package as it is not the point of it. (For example on how to lint **only the changed files** you can checkout [my eslint example](https://github.com/kazazor/gulp-eslint-precommit) that also uses the ```git-pre-commit``` package).
 
 Like I said, this package fixes issue #1 by stashing you unstaged changes and returning the changes to the unstaged state once the pre-commit task has finished (with or without errors).
 
