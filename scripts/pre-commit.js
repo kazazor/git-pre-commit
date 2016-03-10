@@ -27,28 +27,38 @@ function execCommand(command, root) {
       gulpUtils.print(e.stdout.toString(), {color: 'red'});
     }
 
-    process.exit(1);
+    exit(1);
   }
+}
+
+function restoreTree() {
+  var command = "git reset --hard";
+  execCommand(command, gitRoot);
+
+  command = "git stash pop --quiet --index";
+  execCommand(command, gitRoot);
+}
+
+function exit(exitCode, restore) {
+  if (restore) {
+    restoreTree();
+  }
+
+  process.exit(exitCode);
 }
 
 if (!gitRoot) {
   gulpUtils.print("Are you sure this is a git repository..? I'll stop for now..", {color: 'red'});
-  process.exit(1);
+  exit(1);
 } else {
-  var packageJson = JSON.parse(fs.readFileSync(path.join(gitRoot, 'package.json')));
-
-  // Checks if the command to run exists in the package.json file
-  if (!packageJson.precommit) {
-    gulpUtils.print("You did not supply any code to run in the 'precommit' field in the package.json file", {color: 'red'});
-    process.exit(1);
-  } else if (!gitManager.isInitialCommitExists()) {
+  if (!gitManager.isInitialCommitExists()) {
     // 'git stash' command doesn't work when there is no HEAD created yet.
     // In that case we'll just tell the user that the pre-commit hook can't run and give him the command to run without
     // the hook verification
     // Fix: https://github.com/kazazor/git-pre-commit/issues/8
     gulpUtils.print("'git stash' command cannot run without existing HEAD. We're canceling the hook for now.\n" +
     "JUST FOR THIS FIRST COMMIT: please run the command: 'git commit -m \"your message\" --no-verify'");
-    process.exit(1);
+    exit(1);
   } else {
     var command;
 
@@ -56,28 +66,30 @@ if (!gitRoot) {
     command = "git stash --quiet --keep-index --include-untracked";
     execCommand(command, gitRoot);
 
-    var commandParts = packageJson.precommit.split(" ");
+    var packageJson = JSON.parse(fs.readFileSync(path.join(gitRoot, 'package.json')));
 
-    // Gets the executable to run
-    var exec = commandParts[0];
+    // Checks if the command to run exists in the package.json file
+    if (!packageJson.precommit) {
+      gulpUtils.print("You did not supply any code to run in the 'precommit' field in the package.json file", {color: 'red'});
+      exit(1, true);
+    } else {
+      var commandParts = packageJson.precommit.split(" ");
 
-    // Leaves only the params in the array
-    commandParts.splice(0, 1);
+      // Gets the executable to run
+      var exec = commandParts[0];
 
-    var cmd = spawn(exec, commandParts, {stdio: "inherit", cwd: gitRoot });
+      // Leaves only the params in the array
+      commandParts.splice(0, 1);
 
-    cmd.on('exit', function(code) {
-      if (code !== undefined && code !== null && code !== 0) {
-        exitCode = 1;
-      }
+      var cmd = spawn(exec, commandParts, {stdio: "inherit", cwd: gitRoot });
 
-      command = "git reset --hard";
-      execCommand(command, gitRoot);
+      cmd.on('exit', function(code) {
+        if (code !== undefined && code !== null && code !== 0) {
+          exitCode = 1;
+        }
 
-      command = "git stash pop --quiet --index";
-      execCommand(command, gitRoot);
-
-      process.exit(exitCode);
-    });
+        exit(exitCode, true);
+      });
+    }
   }
 }
