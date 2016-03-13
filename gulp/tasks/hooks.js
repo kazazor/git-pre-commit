@@ -2,8 +2,6 @@
  * @fileoverview Initialization the tasks that are related to git hooks
  */
 
-var gulpdebug = require('gulp-debug');
-var gulpif = require('gulp-if');
 var path = require('path');
 var del = require('del');
 var config = rootRequire('./gulp/config');
