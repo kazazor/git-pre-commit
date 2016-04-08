@@ -7,7 +7,25 @@ var del = require('del');
 var config = rootRequire('./gulp/config');
 var gulpUtils = rootRequire('./gulp/gulp-utils');
 var chmod = require('gulp-chmod');
-var vfs = require('vinyl-fs');
+require('shelljs/global');
+
+/**
+ * Copies a file to a dest folder and creates the needed path if doesn't exists
+ * @param  {String} sourceFile - The path to the source file to copy
+ * @param  {String} distFolder - The path for the destination folder
+ * @param {Function} callback - The callback to call when done
+ */
+function copyFile(sourceFile, distFolder, callback) {
+  var pathExists = require('path-exists');
+  pathExists(distFolder).then(function (exists) {
+    if (!exists) {
+      mkdir('-p', distFolder); // eslint-disable-line no-undef
+    }
+
+    cp('-f', sourceFile, distFolder); // eslint-disable-line no-undef
+    callback();
+  });
+}
 
 /**
  * Initialize the gulp tasks regarding the git hooks
@@ -28,15 +46,13 @@ var registerTasks = function registerTasks(gulp) {
     });
 
     // A task to install a pre-commit hook
-    gulp.task('hooks:pre-commit', function () {
-      return vfs.src(config.paths.sourcePreCommitFilePath, {followSymlinks: false})
-        .pipe(vfs.symlink(config.paths.gitHooksFullPath));
+    gulp.task('hooks:pre-commit', function (done) {
+      copyFile(config.paths.sourcePreCommitFilePath, config.paths.gitHooksFullPath, done);
     });
 
     // A task to install a pre-commit hook js file
-    gulp.task('hooks:pre-commit-js', function () {
-      return vfs.src(config.paths.sourcePrecommitJsFilePath, {followSymlinks: false})
-        .pipe(vfs.symlink(config.paths.gitHooksFullPath));
+    gulp.task('hooks:pre-commit-js', function (done) {
+      copyFile(config.paths.sourcePrecommitJsFilePath, config.paths.gitHooksFullPath, done);
     });
 
     // A task to delete all the git hooks directory
@@ -44,14 +60,14 @@ var registerTasks = function registerTasks(gulp) {
       var preCommitHookPath = path.join(config.paths.gitHooksFullPath, config.paths.preCommitHookFileName);
       var preCommitJsPath = path.join(config.paths.destPrecommitJsFilePath);
       var deletions = [preCommitHookPath, preCommitJsPath];
-      gulpUtils.print('Deleting file: ' + deletions);
+      gulpUtils.print('Deleting files: ' + deletions);
       return del(deletions, {force: true});
     });
 
     // A task to install all the git hooks after a cleaning the existing git hooks
     gulp.task('hooks:install', ['hooks:clean'], function(callback){
       // We would like to run the installation of the pre-commit hook only after the clean task has finished
-      runSequence(['hooks:pre-commit', 'hooks:pre-commit-js'], ['hooks:pre-commit-permissions'], function() {
+      runSequence(['hooks:pre-commit'], ['hooks:pre-commit-js'], ['hooks:pre-commit-permissions'], function() {
         callback();
       });
     });

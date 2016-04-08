@@ -4,8 +4,8 @@ var execSync = require('child_process').execSync;
 var fs = require('fs');
 var path = require('path');
 require('shelljs/global');
-var gitManager = require('../utils/git-manager');
-var gulpUtils = require('../gulp/gulp-utils');
+var gitManager = require('../../utils/git-manager');
+var gulpUtils = require('../../gulp/gulp-utils');
 
 // Why do we use spawn and not a regular shelljs?
 // We want to preserve the colors of the output, so until the feature will be implemented
