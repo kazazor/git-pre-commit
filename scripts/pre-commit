@@ -1,7 +1,13 @@
-#!/bin/bash
-
 # Fixes the issue the causes SourceTree to not run the pre-commit hook with the error:
 # 'env: node: No such file or directory'
-export PATH=$PATH:/usr/local/bin:/usr/local/sbin
+
+TEST=%PATH%
+
+# Not in Windows
+if [ "$TEST" == "%PATH%" ]; then
+  TEST=$PATH:/usr/local/bin:/usr/local/sbin
+fi;
+
+export PATH=$TEST
 
 ./.git/hooks/pre-commit.js
