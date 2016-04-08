@@ -6,10 +6,6 @@
   * Added [Travis-CI](https://travis-ci.org/kazazor/git-pre-commit) build to the repository in order to run the tests on every push / PR. [Node.js](https://nodejs.org/en/) version to run at build are: 0.12.x, 4.0.x, 4.1.x, 4.2.x, 4.3.x, 5.7.x & 5.x.x - [#11](https://github.com/kazazor/git-pre-commit/issues/11).
   * Added tests to the repository using [mocha](https://mochajs.org/) - [#12](https://github.com/kazazor/git-pre-commit/issues/12).
 
-## v0.1.13
-* **Fixes**
-  * Fixed the issue where on Windows you needed to ```npm install``` using admin permissions - [#3](https://github.com/kazazor/git-pre-commit/issues/3) & [#4](https://github.com/kazazor/git-pre-commit/issues/4).
-
 ## v0.1.11
 * **Fixes**
   * Fixed the issue where the order of the stashing caused an issue when ```package.json``` file has an issue in it - [#17](https://github.com/kazazor/git-pre-commit/issues/17).
