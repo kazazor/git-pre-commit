@@ -42,12 +42,6 @@ gulp.task('lint', function(callback) {
   });
 });
 
-// Runs all the installation needed for this package
-gulp.task('install', ['hooks:install']);
-
-// Runs all the uninstallation needed for this package
-gulp.task('uninstall', ['hooks:clean']);
-
 // Runs every time we'll git commit
 gulp.task('pre-commit', ['lint']);
 

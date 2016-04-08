@@ -34,7 +34,6 @@
     "url": "https://github.com/kazazor/git-pre-commit/issues"
   },
   "dependencies": {
-    "cross-spawn": "2.1.5",
     "del": "2.2.0",
     "fs": "0.0.2",
     "gulp": "3.9.1",
@@ -44,10 +43,11 @@
     "gulp-if": "2.0.0",
     "gulp-util": "3.0.7",
     "path": "0.12.7",
-    "path-exists": "2.1.0",
     "run-sequence": "1.1.5",
     "shelljs": "0.6.0",
-    "yargs": "4.2.0"
+    "vinyl-fs": "2.3.4",
+    "yargs": "4.2.0",
+    "cross-spawn": "2.1.5"
   },
   "devDependencies": {
     "eslint": "1.10.3",
@@ -56,11 +56,11 @@
     "q": "1.4.1"
   },
   "engines": {
-    "node": ">=4.2.1"
+    "node": ">=4.3.1"
   },
   "scripts": {
-    "postinstall": "./node_modules/.bin/gulp install",
-    "uninstall": "./node_modules/.bin/gulp uninstall",
+    "postinstall": "./node_modules/.bin/gulp hooks:install",
+    "uninstall": "./node_modules/.bin/gulp hooks:clean",
     "test": "./node_modules/.bin/gulp tests --env=development"
   },
   "precommit": "./node_modules/.bin/gulp pre-commit --env=development"
