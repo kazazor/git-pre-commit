@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Fixes the issue the causes SourceTree to not run the pre-commit hook with the error:
 # 'env: node: No such file or directory'
 
