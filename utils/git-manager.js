@@ -33,6 +33,19 @@ function GitManager() {
 GitManager.prototype.gitRootDirectory = undefined;
 
 /**
+ * Checks if we have uncommited changes or not
+ * @return {Boolean} if the local git has uncommited changes
+ */
+GitManager.prototype.hasChanges = function hasChanges() {
+  try {
+    var diff = execSync('git diff -U0').toString();
+    return !!diff;
+  } catch(e) {
+    return false;
+  }
+};
+
+/**
  * Gets the first commit hash on the current branch
  * @return {string|undefined} The has of the first commit (of one exists)
  */
