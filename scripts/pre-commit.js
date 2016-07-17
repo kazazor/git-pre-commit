@@ -87,11 +87,11 @@ if (!gitRoot) {
     var packageJson = JSON.parse(fs.readFileSync(path.join(gitRoot, 'package.json')));
 
     // Checks if the command to run exists in the package.json file
-    if (!packageJson.precommit) {
-      gulpUtils.print("You did not supply any code to run in the 'precommit' field in the package.json file", {color: 'red'});
+    if (!(packageJson && packageJson.scripts && packageJson.scripts.precommit)) {
+      gulpUtils.print("You did not supply any code to run in the 'scripts.precommit' field in the package.json file", {color: 'red'});
       exit(1, hasChanges);
     } else {
-      var commandParts = packageJson.precommit.split(" ");
+      var commandParts = packageJson.scripts.precommit.split(" ");
 
       // Gets the executable to run
       var exec = commandParts[0];

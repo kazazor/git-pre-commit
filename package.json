@@ -59,9 +59,9 @@
     "node": ">=4.3.1"
   },
   "scripts": {
+    "precommit": "./node_modules/.bin/gulp pre-commit --env=development",
     "postinstall": "./node_modules/.bin/gulp hooks:install",
     "uninstall": "./node_modules/.bin/gulp hooks:clean",
     "test": "./node_modules/.bin/gulp tests --env=development"
-  },
-  "precommit": "./node_modules/.bin/gulp pre-commit --env=development"
+  }
 }

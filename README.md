@@ -12,9 +12,11 @@ First install you package in your ```devDependencies```:
 npm install git-pre-commit --save-dev
 ```
 
-Now, add to your ```package.json``` the entry:
+Now, add to your ```package.json``` file in the `scripts` section the entry:
 ```javascript
-"precommit": "<task to run>"
+"scripts": {
+    "precommit": "<task to run>"
+}
 ```
 
 ## What this package is actually solving?
@@ -44,19 +46,25 @@ npm install git-pre-commit --save-dev
 
 Now, add to your ```package.json``` the entry:
 ```javascript
-"precommit": "<task to run>"
+"scripts": {
+    "precommit": "<task to run>"
+}
 ```
 
 That is it! No more that you need to do (except for writing the pre-commit task :) )
 
 So for example you can do something like that to run [Gulp](http://gulpjs.com/) task named ```pre-commit```:
 ```javascript
-"precommit": "gulp pre-commit"
+"scripts": {
+    "precommit": "gulp pre-commit"
+}
 ```
 
 Or even use [Grunt](http://gruntjs.com/):
 ```javascript
-"precommit": "grunt just-showing-that-the-task-name-doesnt-need-to-be-pre-commit"
+"scripts": {
+    "precommit": "echo just-showing-that-the-task-name-doesnt-need-to-be-pre-commit"
+}
 ```
 
 Have fun!
