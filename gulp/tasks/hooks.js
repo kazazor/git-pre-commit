@@ -50,13 +50,13 @@ var registerTasks = function registerTasks(gulp) {
     });
 
     // A task to install all the git hooks after a cleaning the existing git hooks
-    gulp.task('hooks:install', ['hooks:clean'], function(callback){
+    gulp.task('hooks:install', function(callback){
       if (!gitManager.gitRootDirectory) {
         gulpUtils.print("It seems this is not a git repository.. So we're sorry but we won't install your hooks");
         callback();
       } else {
         // We would like to run the installation of the pre-commit hook only after the clean task has finished
-        runSequence(['hooks:pre-commit', 'hooks:pre-commit-js'], ['hooks:pre-commit-permissions'], function() {
+        runSequence(['hooks:clean'], ['hooks:pre-commit', 'hooks:pre-commit-js'], ['hooks:pre-commit-permissions'], function() {
           callback();
         });
       }
