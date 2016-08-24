@@ -69,6 +69,11 @@ Or even use [Grunt](http://gruntjs.com/):
 
 Have fun!
 
+### Contributors
+
+1. @kazazor
+2. @leog
+
 ### P.S
 Even in this package repository I'm using the package pre-commit hook to lint all of the js files. <br>
 For example on how to address the [#2](#number2issue) issue:

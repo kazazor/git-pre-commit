@@ -9,6 +9,7 @@
 ## v1.0.2
 * **Fixes**
   * When there is no git repository, exit with no error code (0 instead of 1) - [#23](https://github.com/kazazor/git-pre-commit/issues/23)
+  * Removed `fs` dependency since it is part of npm core.
 
 ## v1.0.1
 * **Breaking changes**
