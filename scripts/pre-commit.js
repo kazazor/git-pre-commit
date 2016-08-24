@@ -61,7 +61,7 @@ function exit(exitCode, restore) {
 
 if (!gitRoot) {
   gulpUtils.print("Are you sure this is a git repository..? I'll stop for now..", {color: 'red'});
-  exit(1);
+  exit(0);
 } else {
   if (!gitManager.isInitialCommitExists()) {
     // 'git stash' command doesn't work when there is no HEAD created yet.

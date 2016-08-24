@@ -6,6 +6,10 @@
   * Added [Travis-CI](https://travis-ci.org/kazazor/git-pre-commit) build to the repository in order to run the tests on every push / PR. [Node.js](https://nodejs.org/en/) version to run at build are: 0.12.x, 4.0.x, 4.1.x, 4.2.x, 4.3.x, 5.7.x & 5.x.x - [#11](https://github.com/kazazor/git-pre-commit/issues/11).
   * Added tests to the repository using [mocha](https://mochajs.org/) - [#12](https://github.com/kazazor/git-pre-commit/issues/12).
 
+## v1.0.2
+* **Fixes**
+  * When there is no git repository, exit with no error code (0 instead of 1) - [#23](https://github.com/kazazor/git-pre-commit/issues/23)
+
 ## v1.0.1
 * **Breaking changes**
   * Moved the `precommit` entry to the `scripts` section in the `package.json` file.
