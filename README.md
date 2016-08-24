@@ -71,8 +71,8 @@ Have fun!
 
 ### Contributors
 
-1. @kazazor
-2. @leog
+1. [@kazazor](https://github.com/kazazor)
+2. [@leog](https://github.com/leog)
 
 ### P.S
 Even in this package repository I'm using the package pre-commit hook to lint all of the js files. <br>
