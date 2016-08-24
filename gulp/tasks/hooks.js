@@ -8,6 +8,7 @@ var config = rootRequire('./gulp/config');
 var gulpUtils = rootRequire('./gulp/gulp-utils');
 var chmod = require('gulp-chmod');
 var vfs = require('vinyl-fs');
+var gitManager = rootRequire('./utils/git-manager');
 
 /**
  * Initialize the gulp tasks regarding the git hooks
@@ -50,10 +51,15 @@ var registerTasks = function registerTasks(gulp) {
 
     // A task to install all the git hooks after a cleaning the existing git hooks
     gulp.task('hooks:install', ['hooks:clean'], function(callback){
-      // We would like to run the installation of the pre-commit hook only after the clean task has finished
-      runSequence(['hooks:pre-commit', 'hooks:pre-commit-js'], ['hooks:pre-commit-permissions'], function() {
+      if (!gitManager.gitRootDirectory) {
+        gulpUtils.print("It seems this is not a git repository.. So we're sorry but we won't install your hooks");
         callback();
-      });
+      } else {
+        // We would like to run the installation of the pre-commit hook only after the clean task has finished
+        runSequence(['hooks:pre-commit', 'hooks:pre-commit-js'], ['hooks:pre-commit-permissions'], function() {
+          callback();
+        });
+      }
     });
   }
 };

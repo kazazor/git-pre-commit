@@ -13,7 +13,7 @@ function getGitRootDirectory() {
   try {
     return execSync('git rev-parse --show-toplevel').toString().trim();
   } catch(e) {
-    return undefined;
+    return '';
   }
 }
 
