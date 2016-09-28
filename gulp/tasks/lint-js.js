@@ -2,24 +2,26 @@
  * @fileoverview Initialization the tasks that are related to the js linting
  */
 
-var eslint = require('gulp-eslint');
-var gulpUtils = global.rootRequire('./gulp/gulp-utils');
-var gulpdebug = require('gulp-debug');
-var gulpif = require('gulp-if');
-var git = require('gulp-git');
-var config = global.rootRequire('./gulp/config');
-var Q = require('q');
+const eslint = require('gulp-eslint');
+const gulpUtils = global.rootRequire('./gulp/gulp-utils');
+const gulpdebug = require('gulp-debug');
+const gulpif = require('gulp-if');
+const git = require('gulp-git');
+const config = global.rootRequire('./gulp/config');
+const Q = require('q');
+const args = rootRequire('./gulp/args');
 
 /**
  * Checks if the file has been modified by fix or not
  * @param {eslintFIle} file - the eslint file
  * @return {boolean|*} - if the file has been modified by fix or not
  */
-function isFixed(file) {
+const isFixed = (file) => {
   // Has ESLint fixed the file contents?
   return file.eslint !== null && file.eslint.fixed;
-}
+};
 
+/* eslint-disable consistent-return */
 /**
  * Runs eslint
  * @param {Object} gulp - the gulp instance
@@ -28,9 +30,9 @@ function isFixed(file) {
  *
  * @return {Stream} - returns the stream in case we need it for non deferred mode
  */
-function runEslint(gulp, files, deferred) {
-  var passedLinting = true;
-  var stream = gulp.src(files, {base: './'})
+const runEslint = (gulp, files, deferred) => {
+  let passedLinting = true;
+  const stream = gulp.src(files, { base: './' })
     .pipe(gulpif(args.showProccesedFiles, gulpdebug()))
     .pipe(eslint(config.eslintOptions))
     // Prints to the console each row of an error
@@ -39,7 +41,7 @@ function runEslint(gulp, files, deferred) {
     // Reports the task as failed if errors were found (so the git commit will fail)
     .pipe(eslint.failAfterError());
 
-  stream.on('error', function (error) {
+  stream.on('error', (error) => {
     passedLinting = false;
 
     if (deferred) {
@@ -47,7 +49,7 @@ function runEslint(gulp, files, deferred) {
     }
   });
 
-  stream.on('finish', function () {
+  stream.on('finish', () => {
     if (passedLinting && deferred) {
       deferred.resolve();
     }
@@ -56,16 +58,17 @@ function runEslint(gulp, files, deferred) {
   if (!deferred) {
     return stream;
   }
-}
+};
+/* eslint-enable consistent-return */
 
 /**
  * Initialize the gulp tasks regarding the js linting
  * @param {Object} gulp - the gulp instance
  */
-var registerTasks = function registerTasks(gulp) {
+const registerTasks = (gulp) => {
   if (gulp) {
     // A task for running linting of the js files
-    gulp.task('js:lint', function() {
+    gulp.task('js:lint', () => {
       if (args.fix) {
         config.eslintOptions.fix = true;
       }
@@ -79,26 +82,26 @@ var registerTasks = function registerTasks(gulp) {
         return runEslint(gulp, config.sources.allJsFilesExcludePackages);
       }
 
-      var deferred = Q.defer();
+      const deferred = Q.defer();
 
       // Checks if we want to lint a specific path instead of all the changed files
-      if (args.path){
+      if (args.path) {
         runEslint(gulp, [args.path], deferred);
       } else {
-        git.status({args: '--porcelain', quiet: true}, function (err, stdout) {
+        git.status({ args: '--porcelain', quiet: true }, (err, stdout) => {
           if (err) {
             throw err;
           } else {
-            var gitChangedJsFiles = [];
-            var rows = stdout.split('\n');
-            var matchWorkspaceFilesOptions = {
+            const gitChangedJsFiles = [];
+            const rows = stdout.split('\n');
+            const matchWorkspaceFilesOptions = {
               filter: '.+\.js$',
               excludeStatuses: ['d']
             };
-            rows.forEach(function (row) {
+            rows.forEach((row) => {
               if (gulpUtils.matchWorkspaceFiles(row, matchWorkspaceFilesOptions)) {
-                var statusParts = row.split(' ');
-                var filePath = statusParts[statusParts.length - 1];
+                const statusParts = row.split(' ');
+                const filePath = statusParts[statusParts.length - 1];
                 gitChangedJsFiles.push(filePath);
               }
             });

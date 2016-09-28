@@ -2,42 +2,33 @@
  * @fileoverview Initialization for all the general gulp tasks.
  */
 
-var gulp = require('gulp');
-var yargs = require('yargs');
-var path = require('path');
-var runSequence = require('run-sequence').use(gulp);
+const gulp = require('gulp');
+const path = require('path');
+const runSequence = require('run-sequence').use(gulp);
 
-var args = {
-  showProccesedFiles: yargs.argv.show || false,
-  all: yargs.argv.all,
-  path: yargs.argv.path,
-  fix: yargs.argv.fix,
-  env: yargs.argv.env ? yargs.argv.env : (process.env.NODE_ENV ? process.env.NODE_ENV : 'production')
-};
-
-global.args = args;
-
-global.rootRequire = function(name) {
+global.rootRequire = (name) => {
   return require(path.join(__dirname, name));
 };
 
+const args = rootRequire('./gulp/args');
+
 // Register other tasks from separate files
-var gulpHooksTasksRegister = rootRequire('./gulp/tasks/hooks');
+const gulpHooksTasksRegister = rootRequire('./gulp/tasks/hooks');
 gulpHooksTasksRegister(gulp);
 
 // Only add these tasks if we're in development mode
 if (args.env === "development") {
-  var gulpTestsTasksRegister = rootRequire('./gulp/tasks/tests');
+  const gulpTestsTasksRegister = rootRequire('./gulp/tasks/tests');
   gulpTestsTasksRegister(gulp);
-  var gulpLintJsTasksRegister = rootRequire('./gulp/tasks/lint-js');
+  const gulpLintJsTasksRegister = rootRequire('./gulp/tasks/lint-js');
   gulpLintJsTasksRegister(gulp);
 }
 
 // Lint our code
-gulp.task('lint', function(callback) {
+gulp.task('lint', (callback) => {
   // We run the lints using the run-sequence so we won't get all the errors all mixed up with
   // each other when we'll have more than 1 lint task
-  runSequence(['js:lint'], function() {
+  runSequence(['js:lint'], () => {
     callback();
   });
 });
