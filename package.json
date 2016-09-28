@@ -1,6 +1,6 @@
 {
   "name": "git-pre-commit",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "You can run the pre-commit with any build tool (Gulp, Grunt etc..) and it will ignore all the **unstaged changes** that wasn't added to the git index (using the command ```git add```).",
   "license": "MIT",
   "repository": {
@@ -34,33 +34,32 @@
     "url": "https://github.com/kazazor/git-pre-commit/issues"
   },
   "dependencies": {
-    "del": "2.2.0",
+    "del": "2.2.2",
     "gulp": "3.9.1",
     "gulp-chmod": "1.3.0",
     "gulp-debug": "2.1.2",
-    "gulp-git": "1.7.0",
-    "gulp-if": "2.0.0",
+    "gulp-git": "1.11.3",
+    "gulp-if": "2.0.1",
     "gulp-util": "3.0.7",
-    "path": "0.12.7",
-    "run-sequence": "1.1.5",
-    "shelljs": "0.6.0",
-    "vinyl-fs": "2.3.4",
-    "yargs": "4.2.0",
-    "cross-spawn": "2.1.5"
+    "run-sequence": "1.2.2",
+    "shelljs": "0.7.4",
+    "yargs": "5.0.0",
+    "cross-spawn": "4.0.2"
   },
   "devDependencies": {
-    "eslint": "1.10.3",
-    "gulp-eslint": "1.1.0",
-    "gulp-mocha": "2.2.0",
+    "eslint": "3.6.1",
+    "gulp-eslint": "3.0.1",
+    "gulp-mocha": "3.0.1",
     "q": "1.4.1"
   },
   "engines": {
-    "node": ">=4.3.1"
+    "node": ">=6.0.0"
   },
   "scripts": {
-    "precommit": "./node_modules/.bin/gulp pre-commit --env=development",
-    "postinstall": "./node_modules/.bin/gulp hooks:install",
-    "uninstall": "./node_modules/.bin/gulp hooks:clean",
-    "test": "./node_modules/.bin/gulp tests --env=development"
+    "precommit": "gulp pre-commit --env=development",
+    "postinstall": "gulp hooks:install",
+    "uninstall": "gulp hooks:clean",
+    "lint": "gulp lint --env=development",
+    "test": "gulp tests --env=development"
   }
 }
