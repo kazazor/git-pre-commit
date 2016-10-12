@@ -27,7 +27,7 @@ Now, add to your ```package.json``` the entry:
 }
 ```
 
-That is it! No more that you need to do (except for writing the pre-commit task :) )
+That is it! No more that you need to do (except for writing what to run :) )
 
 **Note**: If your root directory has a `yarn.lock` file, all the scripts will be run using `yarn`.
 
@@ -36,7 +36,7 @@ That is it! No more that you need to do (except for writing the pre-commit task 
 So for example you can do something like that to run [Gulp](http://gulpjs.com/) task named ```pre-commit```:
 ```javascript
 "scripts": {
-    "precommit": "gulp pre-commit"
+    "precommit": "gulp lint"
 }
 ```
 
