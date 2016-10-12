@@ -31,7 +31,7 @@ That is it! No more that you need to do (except for writing what to run :) )
 
 **Note**: If your root directory has a `yarn.lock` file, all the scripts will be run using `yarn`.
 
-#### Examples
+### Examples
 
 So for example you can do something like that to run [Gulp](http://gulpjs.com/) task named ```pre-commit```:
 ```javascript
@@ -66,7 +66,7 @@ This resolves into 2 possible situations:
 
 \#2 - <a name="number2issue"></a> It lints **all** the files and not just the changed files. This is not addressed in this package as it is not the point of it. (For example on how to lint **only the changed files** you can checkout [my eslint example](https://github.com/kazazor/gulp-eslint-precommit) that also uses the ```git-pre-commit``` package).
 
-Like I said, this package fixes issue #1 by stashing you unstaged changes and returning the changes to the unstaged state once the pre-commit task has finished (with or without errors).
+Like I said, this package fixes issue #1 by stashing your unstaged changes and returning the changes to the unstaged state once the pre-commit task has finished (with or without errors).
 
 
 ### P.S
