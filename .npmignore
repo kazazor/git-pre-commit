@@ -1,0 +1,11 @@
+# General
+node_modules
+npm-debug.log
+.idea
+
+# Package specific
+tests/
+.eslintrc
+.nvmrc
+.travis.yml
+yarn.lock
