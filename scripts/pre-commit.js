@@ -93,17 +93,17 @@ if (!gitRoot) {
     }
 
     const packageJson = JSON.parse(fs.readFileSync(path.join(gitRoot, 'package.json')));
-    const PRE_COMMIT_SCRIPT_KEY = "precommit";
+    const PRECOMMIT_SCRIPT_KEY = "precommit";
 
     // Checks if the command to run exists in the package.json file
-    if (!(packageJson && packageJson.scripts && packageJson.scripts[PRE_COMMIT_SCRIPT_KEY])) {
+    if (!(packageJson && packageJson.scripts && packageJson.scripts[PRECOMMIT_SCRIPT_KEY])) {
       gulpUtils.print("You did not supply any code to run in the 'scripts.precommit' field in the package.json file", { color: 'red' });
       exit(1, hasChanges);
     } else {
 
       const packageManager = PackageManagerUtils.getPackageManager();
 
-      const commandParts = [packageManager.runCommand, PRE_COMMIT_SCRIPT_KEY];
+      const commandParts = [packageManager.runCommand, PRECOMMIT_SCRIPT_KEY];
 
       // Execute the spawn command using the selected package manager run command
       const cmd = spawn(packageManager.executableCommand, commandParts, { stdio: "inherit", cwd: gitRoot });
