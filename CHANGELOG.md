@@ -6,6 +6,10 @@
   * Added [Travis-CI](https://travis-ci.org/kazazor/git-pre-commit) build to the repository in order to run the tests on every push / PR. [Node.js](https://nodejs.org/en/) version to run at build are: 0.12.x, 4.0.x, 4.1.x, 4.2.x, 4.3.x, 5.7.x & 5.x.x - [#11](https://github.com/kazazor/git-pre-commit/issues/11).
   * Added tests to the repository using [mocha](https://mochajs.org/) - [#12](https://github.com/kazazor/git-pre-commit/issues/12).
 
+## v2.1.2
+* **Improvements**
+  * Added instructions on how to install the package using [yarn](https://yarnpkg.com/).
+
 ## v2.1.1
 * **Fixes**
   * Fixed the broken version `2.1.0`.
