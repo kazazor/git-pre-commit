@@ -7,6 +7,7 @@ require('shelljs/global');
 
 const relativePrecommitUtilsFolder = "pre-commit-utils";
 const GitManager = require(`.${path.sep}${relativePrecommitUtilsFolder}${path.sep}git-manager`);
+const PackageManagerUtils = require(`.${path.sep}${relativePrecommitUtilsFolder}${path.sep}package-manager-utils`);
 const gulpUtils = require(`.${path.sep}${relativePrecommitUtilsFolder}${path.sep}gulp-utils`);
 
 // Why do we use spawn and not a regular shelljs?
@@ -99,10 +100,13 @@ if (!gitRoot) {
       gulpUtils.print("You did not supply any code to run in the 'scripts.precommit' field in the package.json file", { color: 'red' });
       exit(1, hasChanges);
     } else {
-      const commandParts = ["run", PRE_COMMIT_SCRIPT_KEY];
 
-      // Execute the spawn command using npm run
-      const cmd = spawn("npm", commandParts, { stdio: "inherit", cwd: gitRoot });
+      const packageManager = PackageManagerUtils.getPackageManager();
+
+      const commandParts = [packageManager.runCommand, PRE_COMMIT_SCRIPT_KEY];
+
+      // Execute the spawn command using the selected package manager run command
+      const cmd = spawn(packageManager.executableCommand, commandParts, { stdio: "inherit", cwd: gitRoot });
 
       cmd.on('exit', (code) => {
         exit(code, hasChanges);
