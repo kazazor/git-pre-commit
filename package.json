@@ -1,6 +1,6 @@
 {
   "name": "git-pre-commit",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "You can run the pre-commit with any build tool (Gulp, Grunt etc..) and it will ignore all the **unstaged changes** that wasn't added to the git index (using the command ```git add```).",
   "license": "MIT",
   "repository": {
