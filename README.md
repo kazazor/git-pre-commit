@@ -4,20 +4,50 @@
 
 [![NPM](https://nodei.co/npm/git-pre-commit.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/git-pre-commit/)
 
-## TL;DR
-You can run the pre-commit with any build tool (Gulp, Grunt etc..) and it will ignore all the **unstaged changes** that wasn't added to the git index (using the command ```git add```).
+You can run any pre-commit command (Shell, Gulp, Grunt etc..) and it will ignore all the **unstaged changes** that wasn't added to the git index (using the command ```git add```).
 
-First install you package in your ```devDependencies```:
+## Installation
+
+First install the package in your ```devDependencies```:
 ```shell
 npm install git-pre-commit --save-dev
 ```
 
-Now, add to your ```package.json``` file in the `scripts` section the entry:
+Or by using [yarn](https://github.com/yarnpkg/yarn):
+```shell
+yarn add git-pre-commit --dev
+```
+
+## Using the package
+
+Now, add to your ```package.json``` the entry:
 ```javascript
 "scripts": {
     "precommit": "<task to run>"
 }
 ```
+
+That is it! No more that you need to do (except for writing what to run :) )
+
+**Note**: If your root directory has a `yarn.lock` file, all the scripts will be run using `yarn`.
+
+### Examples
+
+So for example you can do something like that to run [Gulp](http://gulpjs.com/) task named ```pre-commit```:
+```javascript
+"scripts": {
+    "precommit": "gulp lint"
+}
+```
+
+Or just a shell command:
+```javascript
+"scripts": {
+    "precommit": "echo Hello_World"
+}
+```
+
+Have fun!
 
 ## What this package is actually solving?
 Most of the git pre-commit hooks are WRONG!<br>
@@ -36,43 +66,8 @@ This resolves into 2 possible situations:
 
 \#2 - <a name="number2issue"></a> It lints **all** the files and not just the changed files. This is not addressed in this package as it is not the point of it. (For example on how to lint **only the changed files** you can checkout [my eslint example](https://github.com/kazazor/gulp-eslint-precommit) that also uses the ```git-pre-commit``` package).
 
-Like I said, this package fixes issue #1 by stashing you unstaged changes and returning the changes to the unstaged state once the pre-commit task has finished (with or without errors).
+Like I said, this package fixes issue #1 by stashing your unstaged changes and returning the changes to the unstaged state once the pre-commit task has finished (with or without errors).
 
-## Using the package
-First install you package in your ```devDependencies```:
-```shell
-npm install git-pre-commit --save-dev
-```
-
-Now, add to your ```package.json``` the entry:
-```javascript
-"scripts": {
-    "precommit": "<task to run>"
-}
-```
-
-That is it! No more that you need to do (except for writing the pre-commit task :) )
-
-So for example you can do something like that to run [Gulp](http://gulpjs.com/) task named ```pre-commit```:
-```javascript
-"scripts": {
-    "precommit": "gulp pre-commit"
-}
-```
-
-Or even use [Grunt](http://gruntjs.com/):
-```javascript
-"scripts": {
-    "precommit": "echo just-showing-that-the-task-name-doesnt-need-to-be-pre-commit"
-}
-```
-
-Have fun!
-
-### Contributors
-
-1. [@kazazor](https://github.com/kazazor)
-2. [@leog](https://github.com/leog)
 
 ### P.S
 Even in this package repository I'm using the package pre-commit hook to lint all of the js files. <br>
