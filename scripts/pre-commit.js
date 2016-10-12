@@ -15,7 +15,6 @@ const gulpUtils = require(`.${path.sep}${relativePrecommitUtilsFolder}${path.sep
 // https://github.com/shelljs/shelljs/issues/86
 const spawn = require('cross-spawn');
 
-let exitCode = 0;
 const gitManager = new GitManager();
 const gitRoot = gitManager.gitRootDirectory;
 
@@ -93,28 +92,20 @@ if (!gitRoot) {
     }
 
     const packageJson = JSON.parse(fs.readFileSync(path.join(gitRoot, 'package.json')));
+    const PRE_COMMIT_SCRIPT_KEY = "precommit";
 
     // Checks if the command to run exists in the package.json file
-    if (!(packageJson && packageJson.scripts && packageJson.scripts.precommit)) {
+    if (!(packageJson && packageJson.scripts && packageJson.scripts[PRE_COMMIT_SCRIPT_KEY])) {
       gulpUtils.print("You did not supply any code to run in the 'scripts.precommit' field in the package.json file", { color: 'red' });
       exit(1, hasChanges);
     } else {
-      const commandParts = packageJson.scripts.precommit.split(" ");
+      const commandParts = ["run", PRE_COMMIT_SCRIPT_KEY];
 
-      // Gets the executable to run
-      const exec = commandParts[0];
-
-      // Leaves only the params in the array
-      commandParts.splice(0, 1);
-
-      const cmd = spawn(exec, commandParts, { stdio: "inherit", cwd: gitRoot });
+      // Execute the spawn command using npm run
+      const cmd = spawn("npm", commandParts, { stdio: "inherit", cwd: gitRoot });
 
       cmd.on('exit', (code) => {
-        if (code !== undefined && code !== null && code !== 0) {
-          exitCode = 1;
-        }
-
-        exit(exitCode, hasChanges);
+        exit(code, hasChanges);
       });
     }
   }

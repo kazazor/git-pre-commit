@@ -6,6 +6,10 @@
   * Added [Travis-CI](https://travis-ci.org/kazazor/git-pre-commit) build to the repository in order to run the tests on every push / PR. [Node.js](https://nodejs.org/en/) version to run at build are: 0.12.x, 4.0.x, 4.1.x, 4.2.x, 4.3.x, 5.7.x & 5.x.x - [#11](https://github.com/kazazor/git-pre-commit/issues/11).
   * Added tests to the repository using [mocha](https://mochajs.org/) - [#12](https://github.com/kazazor/git-pre-commit/issues/12).
 
+## v2.0.1
+* **Fixes**
+  * Fixed the issue for where uninstalled globally executables didn't work for the pre-commit hook - [#26](https://github.com/kazazor/git-pre-commit/issues/26).
+
 ## v2.0.0
 * **Breaking changes**
   * The package now supports only Node version >=6.0.0
