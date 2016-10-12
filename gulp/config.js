@@ -2,7 +2,7 @@
  * @fileoverview Configuration for all the gulp tasks.
  */
 const path = require('path');
-const GitManager = rootRequire('./utils/git-manager');
+const GitManager = rootRequire('./pre-commit-utils/git-manager');
 const gitManager = new GitManager();
 const config = {};
 
@@ -11,10 +11,8 @@ config.paths = {
   gitHooksDirName: '.git/hooks/',
   preCommitHookFileName: 'pre-commit',
   preCommitJsFileName: 'pre-commit.js',
-  destUtilsFolderName: 'pre-commit-utils',
+  utilsFolderName: 'pre-commit-utils',
   scriptsFolder: 'scripts/',
-  gitManagerFileName: 'git-manager.js',
-  gulpUtilsFileName: 'gulp-utils.js',
   tests: {
     folder: 'tests/',
     hooks: 'hooks.test.js',
@@ -22,14 +20,16 @@ config.paths = {
   }
 };
 
+// Source paths
 config.paths.sourcePreCommitFilePath = path.join(config.paths.scriptsFolder, config.paths.preCommitHookFileName);
 config.paths.sourcePrecommitJsFilePath = path.join(config.paths.scriptsFolder, config.paths.preCommitJsFileName);
+config.paths.sourceUtilsFolderPath = path.join(gitManager.gitRootDirectory, config.paths.utilsFolderName);
+
+// Destination paths
 config.paths.gitHooksFullPath = path.join(gitManager.gitRootDirectory, config.paths.gitHooksDirName);
 config.paths.destPrecommitFilePath = path.join(config.paths.gitHooksFullPath, config.paths.preCommitHookFileName);
 config.paths.destPrecommitJsFilePath = path.join(config.paths.gitHooksFullPath, config.paths.preCommitJsFileName);
-config.paths.destUtilsFolderPath = path.join(config.paths.gitHooksFullPath, config.paths.destUtilsFolderName);
-config.paths.gulpUtilsFilePath = path.join("gulp", config.paths.gulpUtilsFileName);
-config.paths.gitManagerFilePath = path.join("utils", config.paths.gitManagerFileName);
+config.paths.destUtilsFolderPath = path.join(config.paths.gitHooksFullPath, config.paths.utilsFolderName);
 
 config.eslintOptions = {};
 

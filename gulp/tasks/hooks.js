@@ -5,9 +5,9 @@
 const path = require('path');
 const del = require('del');
 const config = rootRequire('./gulp/config');
-const gulpUtils = rootRequire('./gulp/gulp-utils');
+const gulpUtils = rootRequire('./pre-commit-utils/gulp-utils');
 const chmod = require('gulp-chmod');
-const GitManager = rootRequire('./utils/git-manager');
+const GitManager = rootRequire('./pre-commit-utils/git-manager');
 const gitManager = new GitManager();
 
 /**
@@ -16,12 +16,12 @@ const gitManager = new GitManager();
  */
 const registerTasks = (gulp) => {
   if (gulp) {
-    // Handeling the case when using a different gulp reference than the intended one of the package:
+    // Handling the case when using a different gulp reference than the intended one of the package:
     // https://www.npmjs.com/package/run-sequence#using-within-gulp-submodules
     const runSequence = require('run-sequence').use(gulp);
 
-    const copySources = (sources, dest) => {
-      return gulp.src(sources)
+    const copySources = (sources, dest, base = ".") => {
+      return gulp.src(sources, { base })
         .pipe(gulp.dest(dest));
     };
 
@@ -30,7 +30,7 @@ const registerTasks = (gulp) => {
       const sources = [
         config.paths.destPrecommitFilePath,
         config.paths.destPrecommitJsFilePath,
-        path.join(config.paths.destUtilsFolderPath, "*")
+        path.join(config.paths.destUtilsFolderPath, "**/*")
       ];
 
       return gulp.src(sources, { base: './' })
@@ -38,24 +38,23 @@ const registerTasks = (gulp) => {
         .pipe(gulp.dest('./'));
     });
 
-    // A task to install a pre-commit hook
-    gulp.task('hooks:pre-commit', () => {
+    // A task to install a pre-commit hook files
+    gulp.task('hooks:install-pre-commit-files', () => {
       const sources = [
         config.paths.sourcePreCommitFilePath,
         config.paths.sourcePrecommitJsFilePath
       ];
 
-      return copySources(sources, config.paths.gitHooksFullPath);
+      return copySources(sources, config.paths.gitHooksFullPath, "scripts");
     });
 
-    // A task to install a pre-commit hook
-    gulp.task('hooks:pre-commit-utils', () => {
+    // A task to install a pre-commit util files
+    gulp.task('hooks:install-util-files', () => {
       const sources = [
-        config.paths.gitManagerFilePath,
-        config.paths.gulpUtilsFilePath
+        path.join(config.paths.sourceUtilsFolderPath, "**/*")
       ];
 
-      return copySources(sources, config.paths.destUtilsFolderPath);
+      return copySources(sources, config.paths.gitHooksFullPath);
     });
 
     // A task to delete all the git hooks directory
@@ -77,7 +76,7 @@ const registerTasks = (gulp) => {
         callback();
       } else {
         // We would like to run the installation of the pre-commit hook only after the clean task has finished
-        runSequence(['hooks:clean'], ['hooks:pre-commit', 'hooks:pre-commit-utils'], ['hooks:pre-commit-permissions'], () => {
+        runSequence(['hooks:clean'], ['hooks:install-pre-commit-files', 'hooks:install-util-files'], ['hooks:pre-commit-permissions'], () => {
           callback();
         });
       }

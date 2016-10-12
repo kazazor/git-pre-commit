@@ -3,7 +3,7 @@
  */
 
 const eslint = require('gulp-eslint');
-const gulpUtils = global.rootRequire('./gulp/gulp-utils');
+const gulpUtils = global.rootRequire('./pre-commit-utils/gulp-utils');
 const gulpdebug = require('gulp-debug');
 const gulpif = require('gulp-if');
 const git = require('gulp-git');
