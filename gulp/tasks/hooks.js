@@ -20,7 +20,7 @@ const registerTasks = (gulp) => {
     // https://www.npmjs.com/package/run-sequence#using-within-gulp-submodules
     const runSequence = require('run-sequence').use(gulp);
 
-    const copySources = (sources, dest, base = ".") => {
+    const copySources = (sources, dest, base = "./") => {
       return gulp.src(sources, { base })
         .pipe(gulp.dest(dest));
     };
