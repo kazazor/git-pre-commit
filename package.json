@@ -19,6 +19,8 @@
     "gulp",
     "grunt",
     "npm",
+    "yarn",
+    "yarn.lock",
     "node",
     "nodejs",
     "js",
