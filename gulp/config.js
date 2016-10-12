@@ -11,7 +11,7 @@ config.paths = {
   gitHooksDirName: '.git/hooks/',
   preCommitHookFileName: 'pre-commit',
   preCommitJsFileName: 'pre-commit.js',
-  utilsFolderName: 'pre-commit-utils',
+  utilsFolderName: 'pre-commit-utils/',
   scriptsFolder: 'scripts/',
   tests: {
     folder: 'tests/',
@@ -23,7 +23,7 @@ config.paths = {
 // Source paths
 config.paths.sourcePreCommitFilePath = path.join(config.paths.scriptsFolder, config.paths.preCommitHookFileName);
 config.paths.sourcePrecommitJsFilePath = path.join(config.paths.scriptsFolder, config.paths.preCommitJsFileName);
-config.paths.sourceUtilsFolderPath = path.join(gitManager.gitRootDirectory, config.paths.utilsFolderName);
+config.paths.sourceUtilsFolderPath = path.normalize(config.paths.utilsFolderName);
 
 // Destination paths
 config.paths.gitHooksFullPath = path.join(gitManager.gitRootDirectory, config.paths.gitHooksDirName);
