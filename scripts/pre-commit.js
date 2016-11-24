@@ -6,9 +6,9 @@ const path = require('path');
 require('shelljs/global');
 
 const relativePrecommitUtilsFolder = "pre-commit-utils";
-const GitManager = require(`.${path.sep}${relativePrecommitUtilsFolder}${path.sep}git-manager`);
-const PackageManagerUtils = require(`.${path.sep}${relativePrecommitUtilsFolder}${path.sep}package-manager-utils`);
-const gulpUtils = require(`.${path.sep}${relativePrecommitUtilsFolder}${path.sep}gulp-utils`);
+const GitManager = require(`./${relativePrecommitUtilsFolder}/git-manager`);
+const PackageManagerUtils = require(`./${relativePrecommitUtilsFolder}/package-manager-utils`);
+const gulpUtils = require(`./${relativePrecommitUtilsFolder}/gulp-utils`);
 
 // Why do we use spawn and not a regular shelljs?
 // We want to preserve the colors of the output, so until the feature will be implemented
