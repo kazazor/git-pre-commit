@@ -6,7 +6,7 @@
 TEST=%PATH%
 
 # Not in Windows
-if [ "$TEST" == "%PATH%" ]; then
+if [ "$TEST" = "%PATH%" ]; then
   TEST=$PATH:/usr/local/bin:/usr/local/sbin
 fi;
 
