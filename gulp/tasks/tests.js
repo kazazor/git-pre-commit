@@ -23,19 +23,19 @@ const runMocha = (gulp, paths) => {
  * @param {Object} gulp - the gulp instance
  */
 const registerTasks = (gulp) => {
-  if (gulp) {
-    // A task to test all the cases regarding the git hooks
-    gulp.task('hooks:tests', [], () => {
-      const hooksTestsPath = path.join(config.paths.tests.folder, config.paths.tests.hooks);
-      runMocha(gulp, hooksTestsPath);
-    });
+  if (!gulp) { return; }
 
-    // A task to test all the cases regarding the git manager class
-    gulp.task('git-manager:tests', [], () => {
-      const gitManagerTestsPath = path.join(config.paths.tests.folder, config.paths.tests.gitManager);
-      runMocha(gulp, gitManagerTestsPath);
-    });
-  }
+  // A task to test all the cases regarding the git hooks
+  gulp.task('hooks:tests', () => {
+    const hooksTestsPath = path.join(config.paths.tests.folder, config.paths.tests.hooks);
+    return runMocha(gulp, hooksTestsPath);
+  });
+
+  // A task to test all the cases regarding the git manager class
+  gulp.task('git-manager:tests', () => {
+    const gitManagerTestsPath = path.join(config.paths.tests.folder, config.paths.tests.gitManager);
+    return runMocha(gulp, gitManagerTestsPath);
+  });
 };
 
 module.exports = registerTasks;
